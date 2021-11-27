@@ -43,12 +43,11 @@ const run = async (text) => {
   const model = await loadModel();
   const metadata = await loadMetadata();
   let sum = 0;
-  text.forEach(function (prediction) {
-    perc = predict(prediction, model, metadata);
-    sum += parseFloat(perc, 10);
+  text.forEach(async function (prediction) {
+    perc = await predict(prediction, model, metadata);
+    sum += await parseFloat(perc, 10);
+    console.log(getSentiment(sum/text.length));
   });
-
-  console.log(getSentiment(sum/text.length));
 };
 window.onload = () => {
   const inputText = document.getElementsByTagName("input")[0];
